@@ -8,7 +8,7 @@ const API_URL = 'http://localhost:3000/user/'
 
 const getUserMainData = async (userId) => {
   try {
-    const { data } = await axios.get(API_URL + userId)
+    const { data } = await axios.get(`${API_URL}${userId}`)
     console.log('Données API : ', data)
     return data.data
   } catch (error) {
@@ -26,7 +26,7 @@ const getUserMainData = async (userId) => {
 
 const getUserActivity = async (userId) => {
   try {
-    const { data } = await axios.get(API_URL + userId + '/activity')
+    const { data } = await axios.get(`${API_URL}${userId}/activity`)
     console.log('Données API : ', data)
     return data.data
   } catch (error) {
@@ -44,7 +44,7 @@ const getUserActivity = async (userId) => {
 
 const getUserAverageSessions = async (userId) => {
   try {
-    const { data } = await axios.get(API_URL + userId + '/average-sessions')
+    const { data } = await axios.get(`${API_URL}${userId}/average-sessions`)
     console.log('Données API : ', data)
     return data.data
   } catch (error) {
@@ -62,7 +62,7 @@ const getUserAverageSessions = async (userId) => {
 
 const getUserPerformance = async (userId) => {
   try {
-    const { data } = await axios.get(API_URL + userId + '/performance')
+    const { data } = await axios.get(`${API_URL}${userId}/performance`)
     console.log('Données API : ', data)
     return data.data
   } catch (error) {
