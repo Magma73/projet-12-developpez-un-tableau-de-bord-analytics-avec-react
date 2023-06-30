@@ -4,19 +4,32 @@ import { USER_ACTIVITY } from '../__mocks__/mockData'
 import { USER_AVERAGE_SESSIONS } from '../__mocks__/mockData'
 import { USER_PERFORMANCE } from '../__mocks__/mockData'
 
+/**
+ * UserService - Handle API calls
+ * @module UserService
+ */
+
 const API_URL = 'http://localhost:3000/user/'
+
+/**
+ * Function getUserMainData - Send User Main Datas using axios api or mocked datas
+ * @param {number} userId- The userId
+ * @returns {Promise<object>} - User Main Datas
+ */
 
 const getUserMainData = async (userId) => {
   try {
     const { data } = await axios.get(`${API_URL}${userId}`)
-    console.log('Données API : ', data)
+    // console.log('Données API : ', data)
+    // console.dir(data)
+    // console.log('console.dir : ', typeof data)
     return data.data
   } catch (error) {
-    console.log(error.code)
+    // console.log(error.code)
     if (error.code === 'ERR_NETWORK') {
-      console.log('mockés')
+      // console.log('mockés')
       const mockedDatas = USER_MAIN_DATA.find((data) => data.id === Number(userId))
-      console.log(mockedDatas)
+      // console.log(mockedDatas)
       return mockedDatas
     } else {
       console.log(error)
@@ -24,6 +37,11 @@ const getUserMainData = async (userId) => {
   }
 }
 
+/**
+ * Function getUserActivity - Send User Activity Datas using axios api or mocked datas
+ * @param {number} userId- The userId
+ * @returns {Promise<object>} - User Activity Datas
+ */
 const getUserActivity = async (userId) => {
   try {
     const { data } = await axios.get(`${API_URL}${userId}/activity`)
@@ -42,6 +60,11 @@ const getUserActivity = async (userId) => {
   }
 }
 
+/**
+ * Function getUserAverageSessions - Send User Average Sessions Datas using axios api or mocked datas
+ * @param {number} userId- The userId
+ * @returns {Promise<object>} - User Average Sessions Datas
+ */
 const getUserAverageSessions = async (userId) => {
   try {
     const { data } = await axios.get(`${API_URL}${userId}/average-sessions`)
@@ -60,6 +83,11 @@ const getUserAverageSessions = async (userId) => {
   }
 }
 
+/**
+ * Function getUserPerformance - Send User Performance Datas using axios api or mocked datas
+ * @param {number} userId- The userId
+ * @returns {Promise<object>} - User Performance Datas
+ */
 const getUserPerformance = async (userId) => {
   try {
     const { data } = await axios.get(`${API_URL}${userId}/performance`)
