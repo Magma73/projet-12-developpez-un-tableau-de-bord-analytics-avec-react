@@ -5,12 +5,18 @@ import SwimIcon from '../../assets/icons/swim.svg'
 import BikeIcon from '../../assets/icons/bike.svg'
 import DumbbellIcon from '../../assets/icons/dumbbell.svg'
 
+/**
+ * Styled nav element for the navigation container.
+ */
 const NavContainer = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `
+/**
+ * Styled div element for the navigation icon container.
+ */
 const NavIconContainer = styled.div`
     display:flex;
     align-items:center;
@@ -22,14 +28,19 @@ const NavIconContainer = styled.div`
     border-radius:6px;
     cursor:pointer;
 `
+/**
+ * Styled image element for the icon container.
+ */
 const IconContainer = styled.img`
     width:60%;
     height:auto;
 `
-const IconsArray = [YogaIcon, SwimIcon, BikeIcon, DumbbellIcon]
-
-
+/**
+ * Function component Informations - Represent the navigation icons
+ * @returns {JSX.Element} The rendered navigation icon component.
+ */
 function NavIcon() {
+    const IconsArray = [YogaIcon, SwimIcon, BikeIcon, DumbbellIcon]
     return (
         <NavContainer>
             {IconsArray.map((Icon, index) => (

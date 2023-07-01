@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import NavIcon from '../NavIcon'
 
+/**
+ * Styled aside element for the slide navigation container.
+ */
 const AsideContainer = styled.aside`
     display:flex;
     flex-direction:column;
@@ -15,6 +18,9 @@ const AsideContainer = styled.aside`
     padding-top: 5.563rem;
 `
 
+/**
+ * Styled paragraph element for the footer container.
+ */
 const FooterContainer = styled.p`
     color: ${colors.tertiary};
     transform: rotate(-180deg);
@@ -23,6 +29,10 @@ const FooterContainer = styled.p`
     font-size:0.75rem;
 `
 
+/**
+ * Function component SlideNav - Represent the slide navigation
+ * @returns {JSX.Element} The rendered slide navigation component.
+ */
 function SlideNav() {
     return (
         <AsideContainer>
