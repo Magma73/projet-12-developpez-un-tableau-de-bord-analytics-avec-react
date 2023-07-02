@@ -50,6 +50,7 @@ const Logo = styled.img`
  * Styled paragraph element for the card name.
  */
 const TextName = styled.p`
+    color:${colors.colorInfosName};
     font-size:1.25rem;
     font-weight:700;
     line-heigth:1.5rem;
@@ -58,7 +59,7 @@ const TextName = styled.p`
  * Styled paragraph element for the card quantity.
  */
 const TextQuantity = styled.p`
-    color:${colors.colorInfos};
+    color:${colors.colorInfosQuantity};
     font-size:0.875rem;
     font-weight:500;
     line-heigth:1.5rem;
