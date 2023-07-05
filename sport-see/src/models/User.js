@@ -59,7 +59,7 @@ export default class User {
   }
   /**
    * Get the keyData value.
-   * @return {number} The _keyData value.
+   * @return {object} The _keyData value.
    */
   get keyData() {
     return this._keyData
