@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import colors from '../../utils/style/colors'
-import YogaIcon from '../../assets/icons/yoga.svg'
-import SwimIcon from '../../assets/icons/swim.svg'
-import BikeIcon from '../../assets/icons/bike.svg'
-import DumbbellIcon from '../../assets/icons/dumbbell.svg'
+import colors from '../../../utils/style/colors'
+import YogaIcon from '../../../assets/icons/yoga.svg'
+import SwimIcon from '../../../assets/icons/swim.svg'
+import BikeIcon from '../../../assets/icons/bike.svg'
+import DumbbellIcon from '../../../assets/icons/dumbbell.svg'
 
 /**
  * Styled nav element for the navigation container.

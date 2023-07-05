@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import NavIcon from '../NavIcon'
+import NavIcon from './NavIcon'
 
 /**
  * Styled aside element for the slide navigation container.
