@@ -10,6 +10,7 @@ const ArticleCard = styled.article`
     min-width:258px;
     margin-bottom:2.438rem;
     padding:2rem;
+    border-radius:5px;
     background: ${colors.backgroundLight};
 `
 /**

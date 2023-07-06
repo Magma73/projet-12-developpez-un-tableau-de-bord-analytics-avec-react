@@ -10,6 +10,7 @@ const ContainerRadialBarCharts = styled.div`
     min-width:258px;
     position:relative;
     margin:15px;
+    border-radius:5px;
     background:${colors.backgroundLight};
 `
 
@@ -83,7 +84,7 @@ function RadialBarChartScore({ score }) {
 
     return (
         <ContainerRadialBarCharts>
-            <RadialBarChart width={300} height={300} cx={150} cy={150} innerRadius={100} outerRadius={87} barSize={20} data={data} startAngle={startAngleDegrees} endAngle={endAngle} fill={colors.primary}>
+            <RadialBarChart width={300} height={263} cx={150} cy={150} innerRadius={100} outerRadius={87} barSize={20} data={data} startAngle={startAngleDegrees} endAngle={endAngle} fill={colors.primary}>
                 <RadialBar minAngle={55} background clockWise={true} dataKey='value' cornerRadius='10' />
                 <Legend iconSize={0} width={120} height={140} fill={colors.colorScoreName} layout='vertical' verticalAlign='top' align='left' wrapperStyle={style} />
             </RadialBarChart>

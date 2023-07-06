@@ -7,7 +7,6 @@ export default class Session {
    * @param {object} data - The data value
    */
   constructor(data) {
-    // this._userId = data.userId
     this._day = data.day
     this._kilogram = data.kilogram
     this._calories = data.calories
