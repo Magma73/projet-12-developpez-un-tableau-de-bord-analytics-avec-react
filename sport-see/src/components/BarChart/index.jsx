@@ -101,7 +101,13 @@ function BarChartActivity() {
         };
     });
 
-    // Customize the Tooltip
+    /**
+     * Custom Tooltip component for the BarChart.
+     * @param {Object} props - Props for the CustomTooltip component.
+     * @param {boolean} props.active - Indicates if the tooltip is active.
+     * @param {Array} props.payload - The payload data for the tooltip.
+     * @returns {JSX.Element|null} - The rendered CustomTooltip component.
+     */
     const CustomTooltip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             const weightValue = payload[0].payload.poids; // Retrieve the weight value directly from the payload
