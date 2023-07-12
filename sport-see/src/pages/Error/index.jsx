@@ -5,20 +5,23 @@ import colors from '../../utils/style/colors'
  * Styled div element for the error message container.
  */
 const ContainerMessage = styled.div`
+    width: calc(100% - 300px);
+    margin:0 auto;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    width: 100%;
-    margin-top: 17.563rem;
-    margin-left: 240px;
 `
 /**
  * Styled paragraph element for the error message.
  */
 const Message = styled.p`
-    font-size:8rem;
+    font-size:5rem;
+    margin-bottom: 2rem;
     color:${colors.primary};
+    @media (min-width: 1440px) {
+        font-size:8rem;
+    }
 `
 /**
  * Styled anchor element for the home link.

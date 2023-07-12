@@ -21,15 +21,18 @@ const HeaderContainer = styled.header`
 const LogoContainer = styled.div`
     display:flex;
     flex:10%;
-    margin-right: 9.3rem;
+    padding-right: 9.3rem;
 `
 
 /**
  * Styled image element for the home logo.
  */
 const HomeLogo = styled.img`
-    width:178px;
+    width:160px;
     height:auto;
+    @media (min-width: 1440px) {
+        width:178px;
+    }
 `
 
 /**
@@ -39,7 +42,6 @@ const NavContainer = styled.nav`
     display: flex;
     justify-content: space-between;
     flex:90%;
-    min-width:994px;
 `
 
 /**
@@ -57,7 +59,7 @@ const UlContainer = styled.ul`
 const LiContainer = styled.li`
     display:flex;
     justify-content: space-between;
-    margin-right: 46px;
+    flex: 10%;
 `
 
 /**
@@ -65,8 +67,11 @@ const LiContainer = styled.li`
  */
 const LinkContainer = styled.a`
     color: ${colors.tertiary};
-    font-size:1.5rem;
+    font-size:1.25rem;
     font-weight:500;
+    @media (min-width: 1440px) {
+        font-size:1.5rem;
+    }
 `
 
 /**

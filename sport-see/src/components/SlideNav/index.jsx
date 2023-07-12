@@ -12,9 +12,7 @@ const AsideContainer = styled.aside`
     justify-content: space-evenly;
     background-color: ${colors.backgroundDark};
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, .25);
-    height: 100vh;
-    position: fixed;
-    left: 0;
+    height: 91vh;
     padding-top: 5.563rem;
 `
 
