@@ -1,6 +1,7 @@
 import User from "../../models/User";
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
+import { Navigate } from "react-router-dom";
 // import useFetchData from "../../__mocks__"
 import UserService from "../../services/user.service";
 import styled from 'styled-components'
@@ -107,79 +108,52 @@ const ContainerCards = styled.div`
 function Home() {
     const { userId } = useParams(); // Récupère la valeur de l'ID depuis l'URL
 
-
-
     const [userData, setContent] = useState("");
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        UserService.getUserMainData(userId).then(
-            (response) => {
-                // console.log("response : ", response)
+        UserService.getUserMainData(userId)
+            .then((response) => {
                 setContent(response);
-            },
-            (error) => {
-                const _userData =
-                    (error.response && error.response.data) ||
-                    error.message ||
-                    error.toString();
-
-                setContent(_userData);
-            }
-        );
+            })
+            .then((error) => {
+                setError(true);
+            });
     }, [userId]);
 
+    if (userData) {
+        const user = new User(userData);
 
-    if (!userData) {
-        return <div>Aucune donnée disponible.</div>;
+        return (
+
+            <SectionContainer>
+                <Title>Bonjour <Name>{user.firstName}</Name></Title>
+                <Tag>Félicitations ! Vous avez explosé vos objectifs hier 👏</Tag>
+
+                <ContainerDashboard>
+                    <ContainerDiagrams>
+                        <ContainerBarActivity>
+                            <BarChartActivity />
+                        </ContainerBarActivity>
+                        <ContainerDetailsDiagrams>
+                            <LineChartAverageSession />
+                            <RadarChartPerformance />
+                            <RadialBarChartScore score={user.todayScore} />
+                        </ContainerDetailsDiagrams>
+
+
+                    </ContainerDiagrams>
+                    {/* <ContainerCards> */}
+                    <Informations />
+                    {/* </ContainerCards> */}
+                </ContainerDashboard>
+            </SectionContainer>
+        );
     }
 
-
-    // console.log("userData: ", userData)
-
-    // console.log(user._id); // Affiche: 1
-    // console.log(user._firstName); // Affiche: John
-    // console.log(user._lastName); // Affiche: Doe
-    // console.log(user._age); // Affiche: 30
-    // console.log(user._todayScore); // Affiche: 100
-    // console.log(user._keyData); // Affiche: 2000
-
-    // console.log(user._proteinCount); // Affiche: 50
-    // console.log(user._carbohydrateCount); // Affiche: 300
-    // console.log(user._lipidCount); // Affiche: 20
-
-    // console.log(userData)
-    // const { id, userInfos, score, keyData } = userData.data;
-
-    const user = new User(userData);
-    // console.log(user);
-    // console.log(user._calorieCount); // Affiche: 2000
-
-
-    return (
-
-        <SectionContainer>
-            <Title>Bonjour <Name>{user.firstName}</Name></Title>
-            <Tag>Félicitations ! Vous avez explosé vos objectifs hier 👏</Tag>
-            
-            <ContainerDashboard>
-                <ContainerDiagrams>
-                    <ContainerBarActivity>
-                        <BarChartActivity />
-                    </ContainerBarActivity>
-                    <ContainerDetailsDiagrams>
-                        <LineChartAverageSession />
-                        <RadarChartPerformance />
-                        <RadialBarChartScore score={user.todayScore} />
-                    </ContainerDetailsDiagrams>
-
-
-                </ContainerDiagrams>
-                {/* <ContainerCards> */}
-                <Informations />
-                {/* </ContainerCards> */}
-            </ContainerDashboard>
-        </SectionContainer>
-    );
+    if (error) {
+        return <Navigate to="/error" />;
+    }
 }
 
 
