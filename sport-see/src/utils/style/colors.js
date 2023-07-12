@@ -3,6 +3,7 @@ const colors = {
   primaryDarken: '#E60000',
   secondary: '#000000',
   tertiary: '#FFFFFF',
+  strokeTertiary: '#FFFFFF33',
   colorScoreName: '#20253A',
   colorInfosName: '#282D30',
   colorInfosQuantity: '#74798C',
@@ -13,6 +14,7 @@ const colors = {
   colorStroke: '#DEDEDE',
   backgroundDark: '#020203',
   backgroundLight: '#FBFBFB',
+  backgroundCursor: '#C4C4C480',
 }
 
 export default colors
