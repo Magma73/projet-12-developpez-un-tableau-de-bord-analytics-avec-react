@@ -3,6 +3,7 @@ import { USER_MAIN_DATA } from '../__mocks__/mockData'
 import { USER_ACTIVITY } from '../__mocks__/mockData'
 import { USER_AVERAGE_SESSIONS } from '../__mocks__/mockData'
 import { USER_PERFORMANCE } from '../__mocks__/mockData'
+import { Navigate } from 'react-router-dom'
 
 /**
  * UserService - Handle API calls
@@ -25,6 +26,9 @@ const getUserMainData = async (userId) => {
     if (error.code === 'ERR_NETWORK') {
       const mockedDatas = USER_MAIN_DATA.find((data) => data.id === Number(userId))
       return mockedDatas
+    } else if (error.code === 'ERR_BAD_REQUEST') {
+      console.log(error)
+      throw error
     } else {
       console.log(error)
     }

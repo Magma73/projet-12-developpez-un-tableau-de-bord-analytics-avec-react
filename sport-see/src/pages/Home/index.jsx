@@ -13,7 +13,9 @@ import BarChartActivity from "../../components/BarChart"
 import LineChartAverageSession from "../../components/LineChart";
 import RadarChartPerformance from "../../components/RadarChart";
 
-
+/**
+ * Container for the home section.
+ */
 const SectionContainer = styled.section`
     width: 100%;
     padding-top: 3rem;
@@ -29,6 +31,9 @@ const SectionContainer = styled.section`
         padding-right: 1.25vw;
     }
 `
+/**
+ * Title of the home page.
+ */
 const Title = styled.h1`
     font-size:2.5rem;
     font-weight:500;
@@ -38,11 +43,15 @@ const Title = styled.h1`
         font-size:3rem;
     }
 `
-
+/**
+ * Name of the user.
+ */
 const Name = styled.span`
     color:${colors.primary};
 `
-
+/**
+ * Tagline for the home page.
+ */
 const Tag = styled.p`
     font-size:1rem;
     font-weight:400;
@@ -54,13 +63,17 @@ const Tag = styled.p`
         font-size:1.125rem;
     }
 `
-
+/**
+ * Container for the dashboard section.
+ */
 const ContainerDashboard = styled.div`
     display:flex;
     width:100%;
     justify-content:space-between;
 `
-
+/**
+ * Container for the diagrams section.
+ */
 const ContainerDiagrams = styled.div`
     display:flex;
     flex-direction:column;
@@ -71,6 +84,9 @@ const ContainerDiagrams = styled.div`
         max-width: 75%;
     }
 `
+/**
+ * Container for the activity bar chart.
+ */
 const ContainerBarActivity = styled.div`
     width:100%;
     height:250px;
@@ -78,7 +94,9 @@ const ContainerBarActivity = styled.div`
         height:320px;
     }
 `
-
+/**
+ * Container for the details diagrams.
+ */
 const ContainerDetailsDiagrams = styled.div`
     display:flex;
     align-items:center;
@@ -91,7 +109,9 @@ const ContainerDetailsDiagrams = styled.div`
     }
 
 `
-
+/**
+ * Container for the information cards.
+ */
 const ContainerCards = styled.div`
     display:flex;
     max-width:258px;
@@ -99,29 +119,38 @@ const ContainerCards = styled.div`
     // width:100%;
 `
 /**
- *
- * @returns
- *
+ * Function component Home - Render the home page.
+ * @returns {JSX.Element} - The rendered Home component.
  */
 
-
 function Home() {
-    const { userId } = useParams(); // Récupère la valeur de l'ID depuis l'URL
+    // Get the value of ID from the URL
+    const { userId } = useParams();
 
     const [userData, setContent] = useState("");
     const [error, setError] = useState(false);
 
+    // Fetches the user main data
     useEffect(() => {
         UserService.getUserMainData(userId)
             .then((response) => {
                 setContent(response);
             })
-            .then((error) => {
+            .catch((error) => {
+                console.log(error)
                 setError(true);
             });
     }, [userId]);
 
+    // Returns the Error page if there is an error
+    if (error) {
+        return <Navigate to="/error" />;
+    }
+
+    // Returns the Error page if there is an error
     if (userData) {
+
+        // Creates a new instance of the User class
         const user = new User(userData);
 
         return (
@@ -149,10 +178,6 @@ function Home() {
                 </ContainerDashboard>
             </SectionContainer>
         );
-    }
-
-    if (error) {
-        return <Navigate to="/error" />;
     }
 }
 
