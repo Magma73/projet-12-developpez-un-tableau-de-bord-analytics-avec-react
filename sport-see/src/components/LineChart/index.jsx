@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import UserService from "../../services/user.service";
 import AverageSession from "../../models/AverageSession";
 import colors from '../../utils/style/colors'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts';
 
-// // Styling for the container tooltip component
+// Styling for the container tooltip component
 const ContainerTooltip = styled.div`
     padding: 5px 7px;
     font-weight:500;
@@ -14,6 +14,23 @@ const ContainerTooltip = styled.div`
     line-heigth:1.625rem;
     color:${colors.secondary};
     background: ${colors.tertiary};
+`
+const ContainerLegend = styled.div`
+    position: absolute;
+    bottom: 130px;
+    left: 30px;
+    @media (min-width: 1440px) {
+        bottom: 185px;
+    }
+`
+
+const SpanLegend = styled.span`
+    padding-right: 40px;
+    font-weight:500;
+    font-size:15px;
+    line-heigth:1.5rem;
+    color:${colors.tertiary};
+    opacity: 0.5;
 `
 
 /**
@@ -85,36 +102,56 @@ function LineChartAverageSession() {
     };
 
     /**
+     * Custom Legend component for the LineChart.
+     * @returns {JSX.Element} - The rendered CustomizedLegend component.
+     */
+    const CustomizedLegend = () => {
+        return (
+            <ContainerLegend>
+                <SpanLegend>Durée moyenne des sessions</SpanLegend>
+            </ContainerLegend>
+        );
+    };
+
+    /**
      * Custom Active Dot component for the LineChart.
      * @param {Object} props - Props for the CustomActiveDot component.
      * @param {number} props.cx - The x-coordinate of the dot.
      * @param {number} props.cy - The y-coordinate of the dot.
      * @returns {JSX.Element} - The rendered CustomActiveDot component.
      */
-    const CustomActiveDot = ({ cx, cy }) => (
-        <svg
-            x={cx - 5} // Adjusted x-coordinate to center the SVG icon
-            y={cy - 5} // Adjusted y-coordinate to center the SVG icon
-            width={10} // Width of the SVG icon
-            height={10} // Height of the SVG icon
-            viewBox="0 0 18 19" // Viewbox of the SVG icon
-            fill='white'
-        >
-            <path fillRule="evenodd" clipRule="evenodd" d="M9 13.8607C11.2091 13.8607 13 12.0809 13 9.88545C13 7.68999 11.2091 5.91022 9 5.91022C6.79086 5.91022 5 7.68999 5 9.88545C5 12.0809 6.79086 13.8607 9 13.8607Z" fill="white" />
-            <path d="M9 16.3607C12.5752 16.3607 15.5 13.4762 15.5 9.88545C15.5 6.29466 12.5752 3.41022 9 3.41022C5.42481 3.41022 2.5 6.29466 2.5 9.88545C2.5 13.4762 5.42481 16.3607 9 16.3607Z" stroke="white" strokeOpacity="0.5" strokeWidth="5" />
-        </svg>
-    );
+    const CustomActiveDot = ({ cx, cy }) => {
+        return (
+            <Dot r={4} cx={cx} cy={cy} fill="white" stroke={colors.strokeTertiary} strokeWidth={8} />
+        );
+    };
 
+
+
+    const CustomCursor = (props) => {
+        const { points, width } = props;
+        const { x, y } = points[0];
+
+        return (
+            <Rectangle
+                background={colors.primaryDarken}
+                stroke={colors.primaryDarken}
+                x={x}
+                y={y - 10}
+                width={width}
+                height={268}
+                opacity={0.1}
+            />
+        );
+    };
     return (
-        <ResponsiveContainer width={258} height="100%">
+        <ResponsiveContainer width='31%' height='100%'  >
             <LineChart data={data} style={{ backgroundColor: colors.primary, borderRadius: '5px' }}>
-                <XAxis dataKey="date" tickLine={false} tickMargin="18" axisLine={false} tick={{ fill: colors.tertiary, fontSize: 12, fontWeight: 500, opacity: 0.5 }} padding={{ right: 10, left: 10 }} />
+                <XAxis dataKey="date" tickLine={false} tickMargin="12" axisLine={false} tick={{ fill: colors.tertiary, fontSize: 12, fontWeight: 500, opacity: 0.5 }} padding={{ right: 10, left: 10 }} />
                 <YAxis hide={true} tick={false} tickCount={3} orientation="right" tickLine={false} axisLine={false} domain={[0, 'dataMax + 130']} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: colors.tertiary, stroke: colors.primaryDarken, strokeWidth: 42 }} />
-                <Legend iconSize={0} align='left' formatter={(value, entry, index) => (
-                    <span style={{ position: 'absolute', bottom: '180px', left: '30px', paddingRight: '40px', color: colors.tertiary, fontSize: '15px', fontWeight: 500, lineHeight: '24px', opacity: 0.5 }}>Durée moyenne des sessions</span>
-                )}></Legend>
-                <Line type="monotoneX" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} />
+                <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
+                <Legend content={<CustomizedLegend />} />
+                <Line type="monotone" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} />
             </LineChart >
         </ResponsiveContainer >
     )
