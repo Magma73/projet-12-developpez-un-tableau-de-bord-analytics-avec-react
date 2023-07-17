@@ -92,8 +92,7 @@ const TextQuantity = styled.p`
  * @returns {JSX.Element} The rendered Card component.
  */
 
-function Card({ data, index, color, logo, name, measure, quantity }) {
-
+const Card = ({ data, index, color, logo, name, measure, quantity }) => {
     return (
         <ArticleCard data={data} key={index}>
             <ContainerIcon>

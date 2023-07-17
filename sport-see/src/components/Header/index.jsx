@@ -78,8 +78,7 @@ const LinkContainer = styled.a`
  * Function component Header - Represent the header
  * @returns {JSX.Element} The rendered header component.
  */
-function Header() {
-
+const Header = () => {
     return (
         <HeaderContainer>
             <LogoContainer>

@@ -29,7 +29,7 @@ const ContainerInformations = styled.div`
  * @returns {JSX.Element} - The rendered Informations component
  */
 
-function Informations() {
+const Informations = () => {
     // Retrieves the value of the ID from the URL
     const { userId } = useParams();
 

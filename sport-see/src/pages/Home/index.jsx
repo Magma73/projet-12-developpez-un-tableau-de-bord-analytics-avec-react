@@ -104,7 +104,6 @@ const ContainerDetailsDiagrams = styled.div`
     margin-top:1.25rem;
     height:210px;
     @media (min-width: 1440px) {
-        margin-top:unset;
         height:263px;
     }
 
@@ -123,7 +122,7 @@ const ContainerCards = styled.div`
  * @returns {JSX.Element} - The rendered Home component.
  */
 
-function Home() {
+const Home = () => {
     // Get the value of ID from the URL
     const { userId } = useParams();
 

@@ -33,7 +33,7 @@ const LinkHome = styled.a`
  * Function page Error - Represent the Error page
  * @returns {JSX.Element} The rendered error component.
  */
-function Error() {
+const Error = () => {
     return (
         <ContainerMessage>
             <Message>Page d'erreur 404</Message>

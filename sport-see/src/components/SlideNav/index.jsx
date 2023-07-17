@@ -31,7 +31,7 @@ const FooterContainer = styled.p`
  * Function component SlideNav - Represent the slide navigation
  * @returns {JSX.Element} The rendered slide navigation component.
  */
-function SlideNav() {
+const SlideNav = () => {
     return (
         <AsideContainer>
             <NavIcon />

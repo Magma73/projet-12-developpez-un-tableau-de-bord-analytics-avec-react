@@ -39,7 +39,7 @@ const IconContainer = styled.img`
  * Function component Informations - Represent the navigation icons
  * @returns {JSX.Element} The rendered navigation icon component.
  */
-function NavIcon() {
+const NavIcon = () => {
     const IconsArray = [YogaIcon, SwimIcon, BikeIcon, DumbbellIcon]
     return (
         <NavContainer>
