@@ -2,14 +2,38 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import UserService from "../../services/user.service";
 import Performance from "../../models/Performance";
+import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+
+
+const RadarChartContainer = styled(ResponsiveContainer)`
+.recharts-polar-grid,
+.recharts-radar {
+  transform: scale(0.5);
+  transform-origin: 50% 50%;
+}
+.recharts-polar-angle-axis
+{
+  transform: scale(0.8);
+  transform-origin: 50% 50%;
+}
+  @media (min-width: 1440px) {
+    .recharts-polar-grid,
+    .recharts-polar-angle-axis,
+    .recharts-radar {
+      transform: none;
+      transform-origin: none;
+    }
+  }
+`;
 
 /**
  * Function component RadialChartPerformance - Display a radar chart representing performance data.
  * @returns {JSX.Element} - The rendered RadialChartPerformance component.
  */
-function RadarChartPerformance() {
+const RadarChartPerformance = () => {
+
     // Retrieves the value of the ID from the URL
     const { userId } = useParams();
 
@@ -58,14 +82,14 @@ function RadarChartPerformance() {
     const sortedData = data.map((item, index) => ({ ...item, index })).sort((a, b) => b.index - a.index);
 
     return (
-        <ResponsiveContainer width='31%' height='100%'>
+        <RadarChartContainer width='31%' height='100%'>
             <RadarChart cx="50%" cy="50%" outerRadius="80%" data={sortedData} style={{ backgroundColor: colors.colorInfosName, borderRadius: '5px' }}>
                 <PolarGrid gridType='polygon' radialLines={false} polarRadius={[0, 10, 23, 43, 68, 90]} />
                 <PolarAngleAxis dataKey="subject" tick={{ fill: colors.tertiary, fontSize: 12 }} />
                 <PolarRadiusAxis angle={10} tick={false} axisLine={false} />
                 <Radar dataKey="A" stroke={colors.primary} fill={colors.primary} fillOpacity={0.7} outerRadius="0%" />
             </RadarChart>
-        </ResponsiveContainer>
+        </RadarChartContainer>
     )
 }
 
