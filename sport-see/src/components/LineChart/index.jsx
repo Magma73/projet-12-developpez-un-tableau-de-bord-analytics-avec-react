@@ -5,6 +5,11 @@ import UserService from "../../services/user.service";
 import AverageSession from "../../models/AverageSession";
 import colors from '../../utils/style/colors'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts';
+import { curveCardinal } from 'd3-shape';
+import { curveBasis } from 'd3-shape';
+import { curveCatmullRom } from 'd3-shape';
+
+
 
 // Styling for the container tooltip component
 const ContainerTooltip = styled.div`
@@ -15,6 +20,7 @@ const ContainerTooltip = styled.div`
     color:${colors.secondary};
     background: ${colors.tertiary};
 `
+// Styling for the container legend component
 const ContainerLegend = styled.div`
     position: absolute;
     bottom: 130px;
@@ -23,7 +29,7 @@ const ContainerLegend = styled.div`
         bottom: 185px;
     }
 `
-
+// Styling for the span legend component
 const SpanLegend = styled.span`
     padding-right: 40px;
     font-weight:500;
@@ -37,7 +43,9 @@ const SpanLegend = styled.span`
  * Function component LineChartAverageSession - Display the average session line chart.
  * @returns {JSX.Element} - The rendered LineChartAverageSession component.
  */
-function LineChartAverageSession() {
+
+const LineChartAverageSession = () => {
+
     // Retrieves the value of the ID from the URL
     const { userId } = useParams();
 
@@ -120,14 +128,46 @@ function LineChartAverageSession() {
      * @param {number} props.cy - The y-coordinate of the dot.
      * @returns {JSX.Element} - The rendered CustomActiveDot component.
      */
-    const CustomActiveDot = ({ cx, cy }) => {
+    const CustomActiveDot = ({ cx, cy, payload }) => {
+        // console.log(payload)
+        // const { session } = payload.session;
         return (
-            <Dot r={4} cx={cx} cy={cy} fill="white" stroke={colors.strokeTertiary} strokeWidth={8} />
+            <Dot r={4} cx={cx * 1.08} cy={cy} fill={colors.tertiary} stroke={colors.strokeTertiary} strokeWidth={8}
+                style={{ transform: 'translate(-3%, 0%)' }}
+            // style={{ transformOrigin: '50% 50%' }}
+            />
+
         );
     };
 
+    // const CustomActiveDot = ({ cx, cy, payload }) => {
+    //     // Obtenir le scale de la ligne
+    //     const scale = 1.25
 
+    //     console.log(scale)
+    //     // Ajuster la valeur cx en tenant compte du scale
+    //     const adjustedCx = cx * scale;
+    //     console.log(adjustedCx)
 
+    //     return (
+    //         <Dot
+    //             r={4}
+    //             cx={cx + scale}
+    //             cy={cy}
+    //             fill="white"
+    //             stroke={colors.strokeTertiary}
+    //             strokeWidth={8}
+    //         />
+    //     );
+    // };
+
+    /**
+     * CustomCursor component - Render a custom cursor for a chart.
+     * @param {Object} props - The props object for CustomCursor component.
+     * @param {Array} props.points - An array of points representing the cursor position.
+     * @param {number} props.width - The width of the cursor.
+     * @returns {JSX.Element} - The rendered CustomCursor component.
+     */
     const CustomCursor = (props) => {
         const { points, width } = props;
         const { x, y } = points[0];
@@ -144,14 +184,28 @@ function LineChartAverageSession() {
             />
         );
     };
+
+
+    // const cardinal = curveBasis.curve;
+    // const cardinal = curveCardinal.tension(0.02);
+    // const line = d3.line(d => d.date, d => d.value)
+    //     .curve(d3.curveCatmullRom.alpha(0.5));
+
+    // const line = curveCatmullRom.alpha(0.5)
+
     return (
         <ResponsiveContainer width='31%' height='100%'  >
-            <LineChart data={data} style={{ backgroundColor: colors.primary, borderRadius: '5px' }}>
+            <LineChart data={data} style={{ backgroundColor: colors.primary, borderRadius: '5px' }}   >
                 <XAxis dataKey="date" tickLine={false} tickMargin="12" axisLine={false} tick={{ fill: colors.tertiary, fontSize: 12, fontWeight: 500, opacity: 0.5 }} padding={{ right: 10, left: 10 }} />
                 <YAxis hide={true} tick={false} tickCount={3} orientation="right" tickLine={false} axisLine={false} domain={[0, 'dataMax + 130']} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
                 <Legend content={<CustomizedLegend />} />
-                <Line type="monotone" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} />
+                <Line type="monotone" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} style={{
+                    transform: 'scaleX(1.12)',
+                    transformOrigin: '50% 50%'
+                }}
+
+                />
             </LineChart >
         </ResponsiveContainer >
     )
