@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import UserService from "../../services/user.service";
-import User from "../../models/User";
-import Card from "../../components/Informations/Card";
+import UserService from "../../services/user.service"
+import User from "../../models/User"
+import Card from "../../components/Informations/Card"
 import colors from '../../utils/style/colors'
 import Apple from '../../assets/icons/apple.svg'
 import Cheeseburger from '../../assets/icons/cheeseburger.svg'

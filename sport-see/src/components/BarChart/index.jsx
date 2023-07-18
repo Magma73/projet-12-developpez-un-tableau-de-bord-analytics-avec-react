@@ -39,7 +39,7 @@ const TextTooltip = styled.p`
  * Function component BarChartActivity - Display a bar chart representing the daily activity with tooltips displaying weight and calorie values.
  * @returns {JSX.Element} - The rendered BarChartActivity component.
  */
-function BarChartActivity() {
+const BarChartActivity = () => {
     // Retrieves the value of the ID from the URL
     const { userId } = useParams();
 
@@ -69,7 +69,6 @@ function BarChartActivity() {
         // Renders a message if no user data is available
         return <div>Aucune donnée disponible.</div>;
     }
-
 
     // Convert session data to Session instances
     const sessionInstances = userDataActivity.sessions.map(sessionData => new Session(sessionData));
@@ -117,7 +116,7 @@ function BarChartActivity() {
                 margin={{
                     top: 90,
                     right: 30,
-                    left: 20,
+                    left: 40,
                     bottom: 32
                 }}
             >

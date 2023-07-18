@@ -3,7 +3,6 @@ import { USER_MAIN_DATA } from '../__mocks__/mockData'
 import { USER_ACTIVITY } from '../__mocks__/mockData'
 import { USER_AVERAGE_SESSIONS } from '../__mocks__/mockData'
 import { USER_PERFORMANCE } from '../__mocks__/mockData'
-import { Navigate } from 'react-router-dom'
 
 /**
  * UserService - Handle API calls

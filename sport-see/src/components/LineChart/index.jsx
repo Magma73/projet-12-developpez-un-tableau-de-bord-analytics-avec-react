@@ -5,11 +5,6 @@ import UserService from "../../services/user.service";
 import AverageSession from "../../models/AverageSession";
 import colors from '../../utils/style/colors'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts';
-import { curveCardinal } from 'd3-shape';
-import { curveBasis } from 'd3-shape';
-import { curveCatmullRom } from 'd3-shape';
-
-
 
 // Styling for the container tooltip component
 const ContainerTooltip = styled.div`
@@ -134,32 +129,10 @@ const LineChartAverageSession = () => {
         return (
             <Dot r={4} cx={cx * 1.08} cy={cy} fill={colors.tertiary} stroke={colors.strokeTertiary} strokeWidth={8}
                 style={{ transform: 'translate(-3%, 0%)' }}
-            // style={{ transformOrigin: '50% 50%' }}
             />
 
         );
     };
-
-    // const CustomActiveDot = ({ cx, cy, payload }) => {
-    //     // Obtenir le scale de la ligne
-    //     const scale = 1.25
-
-    //     console.log(scale)
-    //     // Ajuster la valeur cx en tenant compte du scale
-    //     const adjustedCx = cx * scale;
-    //     console.log(adjustedCx)
-
-    //     return (
-    //         <Dot
-    //             r={4}
-    //             cx={cx + scale}
-    //             cy={cy}
-    //             fill="white"
-    //             stroke={colors.strokeTertiary}
-    //             strokeWidth={8}
-    //         />
-    //     );
-    // };
 
     /**
      * CustomCursor component - Render a custom cursor for a chart.
@@ -184,14 +157,6 @@ const LineChartAverageSession = () => {
             />
         );
     };
-
-
-    // const cardinal = curveBasis.curve;
-    // const cardinal = curveCardinal.tension(0.02);
-    // const line = d3.line(d => d.date, d => d.value)
-    //     .curve(d3.curveCatmullRom.alpha(0.5));
-
-    // const line = curveCatmullRom.alpha(0.5)
 
     return (
         <ResponsiveContainer width='31%' height='100%'  >

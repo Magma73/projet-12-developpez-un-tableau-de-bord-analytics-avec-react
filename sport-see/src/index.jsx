@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Error from './pages/Error';
-import Home from './pages/Home';
-import Header from './components/Header';
-import SlideNav from './components/SlideNav';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import Error from './pages/Error'
+import Home from './pages/Home'
+import Header from './components/Header'
+import SlideNav from './components/SlideNav'
 import styled from 'styled-components'
-import './style.css';
+import './style.css'
 
 const MainContainer = styled.main`
     display:flex;
