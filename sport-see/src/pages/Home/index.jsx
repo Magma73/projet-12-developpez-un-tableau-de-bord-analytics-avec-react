@@ -1,17 +1,15 @@
-import User from "../../models/User";
-import React, { useState, useEffect } from "react";
+import User from "../../models/User"
+import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
-import { Navigate } from "react-router-dom";
-// import useFetchData from "../../__mocks__"
-import UserService from "../../services/user.service";
+import { Navigate } from "react-router-dom"
+import UserService from "../../services/user.service"
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import RadialBarChartScore from "../../components/RadialBarChart";
-// import Card from "../../components/Informations/Card";
-import Informations from "../../components/Informations";
+import RadialBarChartScore from "../../components/RadialBarChart"
+import Informations from "../../components/Informations"
 import BarChartActivity from "../../components/BarChart"
-import LineChartAverageSession from "../../components/LineChart";
-import RadarChartPerformance from "../../components/RadarChart";
+import LineChartAverageSession from "../../components/LineChart"
+import RadarChartPerformance from "../../components/RadarChart"
 
 /**
  * Container for the home section.
@@ -21,10 +19,6 @@ const SectionContainer = styled.section`
     padding-top: 3rem;
     padding-left: 7.5vw;
     padding-right: 4.25vw;
-    // width: calc(100% - 335px);
-    // margin:auto;
-    // margin-top: 4.2rem;
-    // flex:90%;
     @media (min-width: 1440px) {
         padding-top: 4.2rem;
         padding-left: 7.5vw;
@@ -108,15 +102,7 @@ const ContainerDetailsDiagrams = styled.div`
     }
 
 `
-/**
- * Container for the information cards.
- */
-const ContainerCards = styled.div`
-    display:flex;
-    max-width:258px;
-    // flex:20%;
-    // width:100%;
-`
+
 /**
  * Function component Home - Render the home page.
  * @returns {JSX.Element} - The rendered Home component.
@@ -159,6 +145,7 @@ const Home = () => {
                 <Tag>Félicitations ! Vous avez explosé vos objectifs hier 👏</Tag>
 
                 <ContainerDashboard>
+
                     <ContainerDiagrams>
                         <ContainerBarActivity>
                             <BarChartActivity />
@@ -168,12 +155,9 @@ const Home = () => {
                             <RadarChartPerformance />
                             <RadialBarChartScore score={user.todayScore} />
                         </ContainerDetailsDiagrams>
-
-
                     </ContainerDiagrams>
-                    {/* <ContainerCards> */}
+
                     <Informations />
-                    {/* </ContainerCards> */}
                 </ContainerDashboard>
             </SectionContainer>
         );
