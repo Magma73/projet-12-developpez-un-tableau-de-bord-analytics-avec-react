@@ -26,11 +26,11 @@ const RadarChartContainer = styled(ResponsiveContainer)`
       transform-origin: none;
     }
   }
-`;
+`
 
 /**
- * Function component RadialChartPerformance - Display a radar chart representing performance data.
- * @returns {JSX.Element} - The rendered RadialChartPerformance component.
+ * Function component RadarChartPerformance - Display a radar chart representing performance data.
+ * @returns {JSX.Element} - The rendered RadarChartPerformance component.
  */
 const RadarChartPerformance = () => {
 
