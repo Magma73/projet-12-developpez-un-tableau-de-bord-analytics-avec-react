@@ -124,8 +124,6 @@ const LineChartAverageSession = () => {
      * @returns {JSX.Element} - The rendered CustomActiveDot component.
      */
     const CustomActiveDot = ({ cx, cy, payload }) => {
-        // console.log(payload)
-        // const { session } = payload.session;
         return (
             <Dot r={4} cx={cx * 1.08} cy={cy} fill={colors.tertiary} stroke={colors.strokeTertiary} strokeWidth={8}
                 style={{ transform: 'translate(-3%, 0%)' }}
