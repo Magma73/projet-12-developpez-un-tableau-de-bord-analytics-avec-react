@@ -116,16 +116,17 @@ const BarChartActivity = () => {
                 margin={{
                     top: 90,
                     right: 30,
-                    left: 40,
+                    left: 50,
                     bottom: 32
                 }}
+
             >
                 <text x="100" y="40" textAnchor="middle" style={{ fontSize: '0.938rem', fontWeight: 500, lineHeigth: '1.625rem', fill: colors.colorScoreName }}>
                     Activité quotidienne
                 </text>
 
                 <CartesianGrid vertical={false} strokeDasharray="3 3" stroke={colors.colorStroke} />
-                <XAxis dataKey="date" tickLine={false} axisLine={{ stroke: colors.colorStroke, strokeWidth: 1.5 }} tickMargin="14" tick={{ fill: colors.colorAxis, fontSize: 14, fontWeight: 500 }} />
+                <XAxis dataKey="date" tickLine={false} axisLine={{ stroke: colors.colorStroke, strokeWidth: 1.5 }} tickMargin="14" tick={{ fill: colors.colorAxis, fontSize: 14, fontWeight: 500 }} scale='point' />
                 <YAxis yAxisId="poids" domain={['dataMin -1', 'dataMax']} tickCount={3} orientation="right" tickLine={false} axisLine={false} tickMargin="38" tick={{ fill: colors.colorAxis, fontSize: 14, fontWeight: 500 }} />
                 <YAxis yAxisId="calories" hide orientation="left" />
 
