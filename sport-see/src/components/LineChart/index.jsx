@@ -154,6 +154,7 @@ const LineChartAverageSession = () => {
                 width={width}
                 height={268}
                 opacity={0.1}
+                style={{ transform: 'scaleX(1.12)', transformOrigin: '50% 50%' }}
             />
         );
     };
@@ -165,12 +166,7 @@ const LineChartAverageSession = () => {
                 <YAxis hide={true} tick={false} tickCount={3} orientation="right" tickLine={false} axisLine={false} domain={[0, 'dataMax + 130']} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
                 <Legend content={<CustomizedLegend />} />
-                <Line type="monotone" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} style={{
-                    transform: 'scaleX(1.12)',
-                    transformOrigin: '50% 50%'
-                }}
-
-                />
+                <Line type="natural" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} style={{ transform: 'scaleX(1.12)', transformOrigin: '50% 50%' }} />
             </LineChart >
         </ResponsiveContainer >
     )
