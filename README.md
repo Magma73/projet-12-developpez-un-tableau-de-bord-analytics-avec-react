@@ -1,17 +1,21 @@
-# Projet 12 - Développez un tableau de bord analytics avec react
-## Informations générales
+# Projet 12 - Develop an analytics dashboard with React
+## General information
+SportSee is a startup dedicated to sport coaching. In full growth, the company is about to launch a new version of the user's profile page. This page will allow the user, in particular, to track the number of sessions completed and the number of calories burned.
 
-SportSee est une startup dédiée au coaching sportif. En pleine croissance, l’entreprise va lancer une nouvelle version de la page profil de l’utilisateur. Cette page va, notamment, permettre à l’utilisateur de suivre le nombre de sessions réalisées ainsi que le nombre de calories brûlées.
+## Prerequisites
+- [NodeJS (version 12.18)](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
+- Text editor (You are free to use your favorite text editor, such as VSCode)
 
-## Installation et lancement
+## Launching the project
 ### Back-end
-- Fourchez le [référentiel](https://github.com/Magma73/Projet-12-back-end-sportsee)
-- Clonez-le sur votre ordinateur
-- Utilisez la commande `yarn` pour installer les dépendances
-- Accédez à la racine du dossier principal, puis exécutez la commande `yarn dev` pour lancer le serveur de nœud sur le port 3000
+- Fork or clone the [repository](https://github.com/Magma73/Projet-12-back-end-sportsee)
+- Use the command `yarn` to install the dependencies
+- Go to the root of the main folder, then run the command `yarn dev` to launch the server on port 3000
+
 
 ### Front-end
-- Fourchez le front-end
-- Clonez-le sur votre ordinateur
-- Utilisez la commande `yarn install` pour installer les dépendances du projet
-- Accédez à la racine du dossier principal, puis exécutez la commande `yarn start` pour lancer le serveur
+- Fork the repository front-end or clone it
+- Use the command `yarn install` to install the project dependencies
+- Go to the root of the main folder, then run the command `yarn start` to run the project
+
