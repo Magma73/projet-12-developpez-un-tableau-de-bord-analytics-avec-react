@@ -20,4 +20,4 @@ SportSee is a startup dedicated to sport coaching. In full growth, the company i
 - Go to the root of the main folder, then run the command `yarn start` to run the project
 
 ### See documentation
-[![Documentation](https://img.shields.io/badge/Doc-Visit-green)](https://github.com/Magma73/projet-12-developpez-un-tableau-de-bord-analytics-avec-react/tree/main/sport-see/docs)
+[![Documentation](https://img.shields.io/badge/Doc-Visit-green)](https://github.com/Magma73/projet-12-developpez-un-tableau-de-bord-analytics-avec-react/tree/main/sport-see/docs/global.html)
