@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import UserService from "../../services/user.service";
-import AverageSession from "../../models/AverageSession";
+import UserService from "../../services/user.service"
+import AverageSession from "../../models/AverageSession"
 import colors from '../../utils/style/colors'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts'
 
 // Styling for the container tooltip component
 const ContainerTooltip = styled.div`
@@ -33,7 +33,21 @@ const SpanLegend = styled.span`
     color:${colors.tertiary};
     opacity: 0.5;
 `
+const LineChartContainer = styled(ResponsiveContainer)`
+.recharts-line
+{
+  transform: scaleX(1.2);
+  transform-origin: 50% 50%;
+}
 
+  @media (min-width: 1440px) {
+    .recharts-line
+    {
+      transform: scaleX(1.12);
+      transform-origin: 50% 50%;
+    }
+  }
+`
 /**
  * Function component LineChartAverageSession - Display the average session line chart.
  * @returns {JSX.Element} - The rendered LineChartAverageSession component.
@@ -158,15 +172,15 @@ const LineChartAverageSession = () => {
     };
 
     return (
-        <ResponsiveContainer width='31%' height='100%'  >
+        <LineChartContainer width='31%' height='100%'  >
             <LineChart data={data} style={{ backgroundColor: colors.primary, borderRadius: '5px' }}   >
                 <XAxis dataKey="date" tickLine={false} tickMargin="12" axisLine={false} tick={{ fill: colors.tertiary, fontSize: 12, fontWeight: 500, opacity: 0.5 }} padding={{ right: 10, left: 10 }} />
                 <YAxis hide={true} tick={false} tickCount={3} orientation="right" tickLine={false} axisLine={false} domain={[0, 'dataMax + 130']} />
                 <Tooltip content={<CustomTooltip />} cursor={<CustomCursor />} />
                 <Legend content={<CustomizedLegend />} />
-                <Line type="natural" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} style={{ transform: 'scaleX(1.12)', transformOrigin: '50% 50%' }} />
+                <Line type="natural" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={<CustomActiveDot />} />
             </LineChart >
-        </ResponsiveContainer >
+        </LineChartContainer >
     )
 }
 
