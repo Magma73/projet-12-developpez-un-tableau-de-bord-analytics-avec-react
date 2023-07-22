@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/BarChart/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/BarChart/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
+import UserService from "../../services/user.service";
+import Session from "../../models/Session";
+import colors from '../../utils/style/colors'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+
+// Styling for the tooltip container
+const ContainerTooltip = styled.div`
+    width: 39px;
+    height: 63px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:15px 0;
+    color: ${colors.tertiary};
+    background:${colors.primaryDarken};
+    font-weight:500;
+    font-size:7px;
+    line-heigth:1.625rem;
+    text-align:center;
+    border:none;
+    position:relative;
+    top:-65px;
+    right:-50px;
+`
+
+// Styling for the text within the tooltip
+const TextTooltip = styled.p`
+    color:${colors.tertiary};
+    font-weight:500;
+    font-size:7px;
+    line-heigth:1.625rem;
+    text-align:center;
+`
+
+/**
+ * Function component BarChartActivity - Display a bar chart representing the daily activity with tooltips displaying weight and calorie values.
+ * @returns {JSX.Element} - The rendered BarChartActivity component.
+ */
+const BarChartActivity = () => {
+    // Retrieves the value of the ID from the URL
+    const { userId } = useParams();
+
+    // State to store the user data
+    const [userDataActivity, setContent] = useState("");
+
+    useEffect(() => {
+        // Fetches the main user data using the UserService
+        UserService.getUserActivity(userId).then(
+            (response) => {
+                // Sets the user data in the state
+                setContent(response);
+            },
+            (error) => {
+                const _userDataActivity =
+                    (error.response &amp;&amp; error.response.data) ||
+                    error.message ||
+                    error.toString();
+
+                // Sets the error message or data in the state
+                setContent(_userDataActivity);
+            }
+        );
+    }, [userId]);
+
+    if (!userDataActivity) {
+        // Renders a message if no user data is available
+        return &lt;div>Aucune donnée disponible.&lt;/div>;
+    }
+
+    // Convert session data to Session instances
+    const sessionInstances = userDataActivity.sessions.map(sessionData => new Session(sessionData));
+
+    // Prepare data for the chart
+    const data = sessionInstances.map(sessionInstance => {
+        return {
+            date: sessionInstance.day,
+            poids: sessionInstance.kilogram,
+            calories: sessionInstance.calories
+        };
+    });
+
+
+    /**
+     * Custom Tooltip component for the BarChart.
+     * @param {Object} props - Props for the CustomTooltip component.
+     * @param {boolean} props.active - Indicates if the tooltip is active.
+     * @param {Array} props.payload - The payload data for the tooltip.
+     * @returns {JSX.Element|null} - The rendered CustomTooltip component.
+     */
+    const CustomTooltip = ({ active, payload }) => {
+        if (active &amp;&amp; payload &amp;&amp; payload.length) {
+            const weightValue = payload[0].payload.poids; // Retrieve the weight value directly from the payload
+            const caloriesValue = payload[0].payload.calories; // Retrieve the calorie value directly from the payload
+
+            return (
+                &lt;ContainerTooltip>
+                    &lt;TextTooltip>{weightValue} kg&lt;/TextTooltip>
+                    &lt;TextTooltip>{caloriesValue} kCal&lt;/TextTooltip>
+                &lt;/ContainerTooltip>
+            );
+        }
+
+        return null;
+    };
+
+    return (
+        &lt;ResponsiveContainer width="100%" height="100%" >
+            &lt;BarChart style={{ backgroundColor: colors.backgroundLight, borderRadius: '5px' }}
+
+                data={data}
+                barSize={6}
+                barGap={8}
+                margin={{
+                    top: 90,
+                    right: 30,
+                    left: 50,
+                    bottom: 32
+                }}
+
+            >
+                &lt;text x="100" y="40" textAnchor="middle" style={{ fontSize: '0.938rem', fontWeight: 500, lineHeigth: '1.625rem', fill: colors.colorScoreName }}>
+                    Activité quotidienne
+                &lt;/text>
+
+                &lt;CartesianGrid vertical={false} strokeDasharray="3 3" stroke={colors.colorStroke} />
+                &lt;XAxis dataKey="date" tickLine={false} axisLine={{ stroke: colors.colorStroke, strokeWidth: 1.5 }} tickMargin="14" tick={{ fill: colors.colorAxis, fontSize: 14, fontWeight: 500 }} scale='point' />
+                &lt;YAxis yAxisId="poids" domain={['dataMin -1', 'dataMax']} tickCount={3} orientation="right" tickLine={false} axisLine={false} tickMargin="38" tick={{ fill: colors.colorAxis, fontSize: 14, fontWeight: 500 }} />
+                &lt;YAxis yAxisId="calories" hide orientation="left" />
+
+                &lt;Tooltip content={&lt;CustomTooltip />} cursor={{ fill: colors.backgroundCursor }} />
+                &lt;Legend
+                    wrapperStyle={{ position: "absolute", top: 25, left: 58 }}
+                    verticalAlign="top" align="right" layout="horizontal" iconSize={8} formatter={(value, entry, index) => (
+                        &lt;span style={{ marginRight: '30px', color: colors.colorInfosQuantity, fontSize: '14px', fontWeight: '500', textAlign: "center" }}>{value}&lt;/span>
+                    )}
+                />
+                &lt;Bar name="Poids (kg)" dataKey="poids" yAxisId="poids" legendType='circle' fill={colors.colorInfosName} radius={[4, 4, 0, 0]} />
+                &lt;Bar name="Calories brûlées (kCal)" dataKey="calories" yAxisId="calories" legendType='circle' fill={colors.primaryDarken} radius={[4, 4, 0, 0]} />
+            &lt;/BarChart>
+        &lt;/ResponsiveContainer>
+    )
+}
+
+export default BarChartActivity</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-UserService.html">UserService</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ArticleCard">ArticleCard</a></li><li><a href="global.html#AsideContainer">AsideContainer</a></li><li><a href="global.html#BarChartActivity">BarChartActivity</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#ContainerBarActivity">ContainerBarActivity</a></li><li><a href="global.html#ContainerDashboard">ContainerDashboard</a></li><li><a href="global.html#ContainerDetailsDiagrams">ContainerDetailsDiagrams</a></li><li><a href="global.html#ContainerDiagrams">ContainerDiagrams</a></li><li><a href="global.html#ContainerIcon">ContainerIcon</a></li><li><a href="global.html#ContainerInformations">ContainerInformations</a></li><li><a href="global.html#ContainerLegend">ContainerLegend</a></li><li><a href="global.html#ContainerMessage">ContainerMessage</a></li><li><a href="global.html#ContainerSpan">ContainerSpan</a></li><li><a href="global.html#ContainerText">ContainerText</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FooterContainer">FooterContainer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderContainer">HeaderContainer</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#HomeLogo">HomeLogo</a></li><li><a href="global.html#IconContainer">IconContainer</a></li><li><a href="global.html#Informations">Informations</a></li><li><a href="global.html#LegendTextGoal">LegendTextGoal</a></li><li><a href="global.html#LegendTextScore">LegendTextScore</a></li><li><a href="global.html#LiContainer">LiContainer</a></li><li><a href="global.html#LineChartAverageSession">LineChartAverageSession</a></li><li><a href="global.html#LinkContainer">LinkContainer</a></li><li><a href="global.html#LinkHome">LinkHome</a></li><li><a href="global.html#Logo">Logo</a></li><li><a href="global.html#LogoContainer">LogoContainer</a></li><li><a href="global.html#Message">Message</a></li><li><a href="global.html#Name">Name</a></li><li><a href="global.html#NavContainer">NavContainer</a></li><li><a href="global.html#NavIcon">NavIcon</a></li><li><a href="global.html#NavIconContainer">NavIconContainer</a></li><li><a href="global.html#RadarChartPerformance">RadarChartPerformance</a></li><li><a href="global.html#RadialBarChartScore">RadialBarChartScore</a></li><li><a href="global.html#SectionContainer">SectionContainer</a></li><li><a href="global.html#SlideNav">SlideNav</a></li><li><a href="global.html#Tag">Tag</a></li><li><a href="global.html#TextName">TextName</a></li><li><a href="global.html#TextQuantity">TextQuantity</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#UlContainer">UlContainer</a></li><li><a href="global.html#age">age</a></li><li><a href="global.html#calorieCount">calorieCount</a></li><li><a href="global.html#calories">calories</a></li><li><a href="global.html#carbohydrateCount">carbohydrateCount</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#day">day</a></li><li><a href="global.html#firstName">firstName</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#keyData">keyData</a></li><li><a href="global.html#kilogram">kilogram</a></li><li><a href="global.html#kind">kind</a></li><li><a href="global.html#lastName">lastName</a></li><li><a href="global.html#lipidCount">lipidCount</a></li><li><a href="global.html#proteinCount">proteinCount</a></li><li><a href="global.html#sessionLength">sessionLength</a></li><li><a href="global.html#todayScore">todayScore</a></li><li><a href="global.html#value">value</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 22 2023 18:35:16 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

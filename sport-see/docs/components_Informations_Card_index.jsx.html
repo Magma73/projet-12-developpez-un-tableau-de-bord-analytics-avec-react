@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Informations/Card/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Informations/Card/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import styled from 'styled-components'
+import colors from '../../../utils/style/colors'
+
+/**
+ * Styled article element for the card.
+ */
+const ArticleCard = styled.article`
+    width:100%;
+    display:flex;
+    align-items:center;
+    margin-bottom: 1.2rem;
+    padding:1.25rem;
+    border-radius:5px;
+    background: ${colors.backgroundLight};
+    max-width: 100%;
+    @media (min-width: 1440px) {
+        padding: 13%;
+        margin-bottom: 2.2rem;
+    }
+`
+
+/**
+ * Styled container for the icon.
+ */
+const ContainerIcon = styled.div`
+    display:flex;
+    align-items:center;
+    flex:30%;
+`
+/**
+ * Styled container for the text.
+ */
+const ContainerText = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    flex:70%;
+    margin-right: 0.688rem;
+`
+/**
+ * Styled span container for the icon.
+ */
+const ContainerSpan = styled.span`
+    width:60px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:5px;
+    margin-right:1.5rem;
+`
+/**
+ * Styled image element for the logo.
+ */
+const Logo = styled.img`
+    z-index:10;
+    opacity:1;
+    max-width: 100%;
+    height: auto;
+`
+/**
+ * Styled paragraph element for the card name.
+ */
+const TextName = styled.p`
+    color:${colors.colorInfosName};
+    font-size:1.25rem;
+    font-weight:700;
+    line-height:1.5rem;
+    @media (max-width: 1024px) {
+        font-size: 1rem;
+    }
+`
+/**
+ * Styled paragraph element for the card quantity.
+ */
+const TextQuantity = styled.p`
+    color:${colors.colorInfosQuantity};
+    font-size:0.875rem;
+    font-weight:500;
+    line-height:1.5rem;
+`
+
+/**
+ * Function component Card - Create a card
+ * @param {object} data - The data value.
+ * @param {number} index - The index of the card.
+ * @param {string} color - The color of the container span.
+ * @param {string} logo - The source of the logo image.
+ * @param {string} name - The name of the card.
+ * @param {string} measure - The measurement unit.
+ * @param {string} quantity - The quantity value.
+ * @returns {JSX.Element} The rendered Card component.
+ */
+
+const Card = ({ data, index, color, logo, name, measure, quantity }) => {
+    return (
+        &lt;ArticleCard data={data} key={index}>
+            &lt;ContainerIcon>
+                &lt;ContainerSpan style={{ backgroundColor: color }}>
+                    &lt;Logo src={logo} />
+                &lt;/ContainerSpan>
+            &lt;/ContainerIcon>
+            &lt;ContainerText>
+                &lt;TextName>{name}{measure}&lt;/TextName>
+                &lt;TextQuantity>{quantity}&lt;/TextQuantity>
+            &lt;/ContainerText>
+        &lt;/ArticleCard>
+    );
+}
+
+export default Card</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-UserService.html">UserService</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ArticleCard">ArticleCard</a></li><li><a href="global.html#AsideContainer">AsideContainer</a></li><li><a href="global.html#BarChartActivity">BarChartActivity</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#ContainerBarActivity">ContainerBarActivity</a></li><li><a href="global.html#ContainerDashboard">ContainerDashboard</a></li><li><a href="global.html#ContainerDetailsDiagrams">ContainerDetailsDiagrams</a></li><li><a href="global.html#ContainerDiagrams">ContainerDiagrams</a></li><li><a href="global.html#ContainerIcon">ContainerIcon</a></li><li><a href="global.html#ContainerInformations">ContainerInformations</a></li><li><a href="global.html#ContainerLegend">ContainerLegend</a></li><li><a href="global.html#ContainerMessage">ContainerMessage</a></li><li><a href="global.html#ContainerSpan">ContainerSpan</a></li><li><a href="global.html#ContainerText">ContainerText</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FooterContainer">FooterContainer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderContainer">HeaderContainer</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#HomeLogo">HomeLogo</a></li><li><a href="global.html#IconContainer">IconContainer</a></li><li><a href="global.html#Informations">Informations</a></li><li><a href="global.html#LegendTextGoal">LegendTextGoal</a></li><li><a href="global.html#LegendTextScore">LegendTextScore</a></li><li><a href="global.html#LiContainer">LiContainer</a></li><li><a href="global.html#LineChartAverageSession">LineChartAverageSession</a></li><li><a href="global.html#LinkContainer">LinkContainer</a></li><li><a href="global.html#LinkHome">LinkHome</a></li><li><a href="global.html#Logo">Logo</a></li><li><a href="global.html#LogoContainer">LogoContainer</a></li><li><a href="global.html#Message">Message</a></li><li><a href="global.html#Name">Name</a></li><li><a href="global.html#NavContainer">NavContainer</a></li><li><a href="global.html#NavIcon">NavIcon</a></li><li><a href="global.html#NavIconContainer">NavIconContainer</a></li><li><a href="global.html#RadarChartPerformance">RadarChartPerformance</a></li><li><a href="global.html#RadialBarChartScore">RadialBarChartScore</a></li><li><a href="global.html#SectionContainer">SectionContainer</a></li><li><a href="global.html#SlideNav">SlideNav</a></li><li><a href="global.html#Tag">Tag</a></li><li><a href="global.html#TextName">TextName</a></li><li><a href="global.html#TextQuantity">TextQuantity</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#UlContainer">UlContainer</a></li><li><a href="global.html#age">age</a></li><li><a href="global.html#calorieCount">calorieCount</a></li><li><a href="global.html#calories">calories</a></li><li><a href="global.html#carbohydrateCount">carbohydrateCount</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#day">day</a></li><li><a href="global.html#firstName">firstName</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#keyData">keyData</a></li><li><a href="global.html#kilogram">kilogram</a></li><li><a href="global.html#kind">kind</a></li><li><a href="global.html#lastName">lastName</a></li><li><a href="global.html#lipidCount">lipidCount</a></li><li><a href="global.html#proteinCount">proteinCount</a></li><li><a href="global.html#sessionLength">sessionLength</a></li><li><a href="global.html#todayScore">todayScore</a></li><li><a href="global.html#value">value</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 22 2023 18:35:16 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

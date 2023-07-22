@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/LineChart/index.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/LineChart/index.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react"
+import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
+import UserService from "../../services/user.service"
+import AverageSession from "../../models/AverageSession"
+import colors from '../../utils/style/colors'
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, Rectangle, Dot, ResponsiveContainer } from 'recharts'
+
+// Styling for the container tooltip component
+const ContainerTooltip = styled.div`
+    padding: 5px 7px;
+    font-weight:500;
+    font-size:0.5rem;
+    line-heigth:1.625rem;
+    color:${colors.secondary};
+    background: ${colors.tertiary};
+`
+// Styling for the container legend component
+const ContainerLegend = styled.div`
+    position: absolute;
+    bottom: 130px;
+    left: 30px;
+    @media (min-width: 1440px) {
+        bottom: 185px;
+    }
+`
+// Styling for the span legend component
+const SpanLegend = styled.span`
+    padding-right: 40px;
+    font-weight:500;
+    font-size:15px;
+    line-heigth:1.5rem;
+    color:${colors.tertiary};
+    opacity: 0.5;
+`
+const LineChartContainer = styled(ResponsiveContainer)`
+.recharts-line
+{
+  transform: scaleX(1.2);
+  transform-origin: 50% 50%;
+}
+
+  @media (min-width: 1440px) {
+    .recharts-line
+    {
+      transform: scaleX(1.12);
+      transform-origin: 50% 50%;
+    }
+  }
+`
+/**
+ * Function component LineChartAverageSession - Display the average session line chart.
+ * @returns {JSX.Element} - The rendered LineChartAverageSession component.
+ */
+
+const LineChartAverageSession = () => {
+
+    // Retrieves the value of the ID from the URL
+    const { userId } = useParams();
+
+    // State to store the user data
+    const [userData, setContent] = useState("");
+
+    useEffect(() => {
+        // Fetches the main user data using the UserService
+        UserService.getUserAverageSessions(userId).then(
+            (response) => {
+                // Sets the user data in the state
+                setContent(response);
+            },
+            (error) => {
+                const _userData =
+                    (error.response &amp;&amp; error.response.data) ||
+                    error.message ||
+                    error.toString();
+
+                // Sets the error message or data in the state
+                setContent(_userData);
+            }
+        );
+    }, [userId]);
+
+    if (!userData) {
+        // Renders a message if no user data is available
+        return &lt;div>Aucune donnée disponible.&lt;/div>;
+    }
+
+    // Convert session data to AverageSession instances
+    const averageSessionInstances = userData.sessions.map(sessionData => new AverageSession(sessionData));
+
+    // Prepare data for the chart
+    const data = averageSessionInstances.map(averageSessionInstance => {
+        return {
+            date: averageSessionInstance.day,
+            session: averageSessionInstance.sessionLength
+        };
+    });
+
+    /**
+     * Custom Tooltip component for the LineChart.
+     * @param {Object} props - Props for the CustomTooltip component.
+     * @param {boolean} props.active - Indicates if the tooltip is active.
+     * @param {Array} props.payload - The payload data for the tooltip.
+     * @returns {JSX.Element|null} - The rendered CustomTooltip component.
+     */
+
+    const CustomTooltip = ({ active, payload }) => {
+        if (active &amp;&amp; payload &amp;&amp; payload.length) {
+            const sessionLength = payload[0].payload.session;
+
+            return (
+                &lt;ContainerTooltip>
+                    {sessionLength} min
+                &lt;/ContainerTooltip>
+            );
+        }
+
+        return null;
+    };
+
+    /**
+     * Custom Legend component for the LineChart.
+     * @returns {JSX.Element} - The rendered CustomizedLegend component.
+     */
+    const CustomizedLegend = () => {
+        return (
+            &lt;ContainerLegend>
+                &lt;SpanLegend>Durée moyenne des sessions&lt;/SpanLegend>
+            &lt;/ContainerLegend>
+        );
+    };
+
+    /**
+     * Custom Active Dot component for the LineChart.
+     * @param {Object} props - Props for the CustomActiveDot component.
+     * @param {number} props.cx - The x-coordinate of the dot.
+     * @param {number} props.cy - The y-coordinate of the dot.
+     * @returns {JSX.Element} - The rendered CustomActiveDot component.
+     */
+    const CustomActiveDot = ({ cx, cy, payload }) => {
+        return (
+            &lt;Dot r={4} cx={cx * 1.08} cy={cy} fill={colors.tertiary} stroke={colors.strokeTertiary} strokeWidth={8}
+                style={{ transform: 'translate(-3%, 0%)' }}
+            />
+
+        );
+    };
+
+    /**
+     * CustomCursor component - Render a custom cursor for a chart.
+     * @param {Object} props - The props object for CustomCursor component.
+     * @param {Array} props.points - An array of points representing the cursor position.
+     * @param {number} props.width - The width of the cursor.
+     * @returns {JSX.Element} - The rendered CustomCursor component.
+     */
+    const CustomCursor = (props) => {
+        const { points, width } = props;
+        const { x, y } = points[0];
+
+        return (
+            &lt;Rectangle
+                background={colors.primaryDarken}
+                stroke={colors.primaryDarken}
+                x={x}
+                y={y - 10}
+                width={width}
+                height={268}
+                opacity={0.1}
+                style={{ transform: 'scaleX(1.12)', transformOrigin: '50% 50%' }}
+            />
+        );
+    };
+
+    return (
+        &lt;LineChartContainer width='31%' height='100%'  >
+            &lt;LineChart data={data} style={{ backgroundColor: colors.primary, borderRadius: '5px' }}   >
+                &lt;XAxis dataKey="date" tickLine={false} tickMargin="12" axisLine={false} tick={{ fill: colors.tertiary, fontSize: 12, fontWeight: 500, opacity: 0.5 }} padding={{ right: 10, left: 10 }} />
+                &lt;YAxis hide={true} tick={false} tickCount={3} orientation="right" tickLine={false} axisLine={false} domain={[0, 'dataMax + 130']} />
+                &lt;Tooltip content={&lt;CustomTooltip />} cursor={&lt;CustomCursor />} />
+                &lt;Legend content={&lt;CustomizedLegend />} />
+                &lt;Line type="natural" dataKey="session" dot={false} stroke={colors.tertiary} strokeWidth={2} opacity={0.5} activeDot={&lt;CustomActiveDot />} />
+            &lt;/LineChart >
+        &lt;/LineChartContainer >
+    )
+}
+
+export default LineChartAverageSession</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-UserService.html">UserService</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ArticleCard">ArticleCard</a></li><li><a href="global.html#AsideContainer">AsideContainer</a></li><li><a href="global.html#BarChartActivity">BarChartActivity</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#ContainerBarActivity">ContainerBarActivity</a></li><li><a href="global.html#ContainerDashboard">ContainerDashboard</a></li><li><a href="global.html#ContainerDetailsDiagrams">ContainerDetailsDiagrams</a></li><li><a href="global.html#ContainerDiagrams">ContainerDiagrams</a></li><li><a href="global.html#ContainerIcon">ContainerIcon</a></li><li><a href="global.html#ContainerInformations">ContainerInformations</a></li><li><a href="global.html#ContainerLegend">ContainerLegend</a></li><li><a href="global.html#ContainerMessage">ContainerMessage</a></li><li><a href="global.html#ContainerSpan">ContainerSpan</a></li><li><a href="global.html#ContainerText">ContainerText</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#FooterContainer">FooterContainer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeaderContainer">HeaderContainer</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#HomeLogo">HomeLogo</a></li><li><a href="global.html#IconContainer">IconContainer</a></li><li><a href="global.html#Informations">Informations</a></li><li><a href="global.html#LegendTextGoal">LegendTextGoal</a></li><li><a href="global.html#LegendTextScore">LegendTextScore</a></li><li><a href="global.html#LiContainer">LiContainer</a></li><li><a href="global.html#LineChartAverageSession">LineChartAverageSession</a></li><li><a href="global.html#LinkContainer">LinkContainer</a></li><li><a href="global.html#LinkHome">LinkHome</a></li><li><a href="global.html#Logo">Logo</a></li><li><a href="global.html#LogoContainer">LogoContainer</a></li><li><a href="global.html#Message">Message</a></li><li><a href="global.html#Name">Name</a></li><li><a href="global.html#NavContainer">NavContainer</a></li><li><a href="global.html#NavIcon">NavIcon</a></li><li><a href="global.html#NavIconContainer">NavIconContainer</a></li><li><a href="global.html#RadarChartPerformance">RadarChartPerformance</a></li><li><a href="global.html#RadialBarChartScore">RadialBarChartScore</a></li><li><a href="global.html#SectionContainer">SectionContainer</a></li><li><a href="global.html#SlideNav">SlideNav</a></li><li><a href="global.html#Tag">Tag</a></li><li><a href="global.html#TextName">TextName</a></li><li><a href="global.html#TextQuantity">TextQuantity</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#UlContainer">UlContainer</a></li><li><a href="global.html#age">age</a></li><li><a href="global.html#calorieCount">calorieCount</a></li><li><a href="global.html#calories">calories</a></li><li><a href="global.html#carbohydrateCount">carbohydrateCount</a></li><li><a href="global.html#data">data</a></li><li><a href="global.html#day">day</a></li><li><a href="global.html#firstName">firstName</a></li><li><a href="global.html#id">id</a></li><li><a href="global.html#keyData">keyData</a></li><li><a href="global.html#kilogram">kilogram</a></li><li><a href="global.html#kind">kind</a></li><li><a href="global.html#lastName">lastName</a></li><li><a href="global.html#lipidCount">lipidCount</a></li><li><a href="global.html#proteinCount">proteinCount</a></li><li><a href="global.html#sessionLength">sessionLength</a></li><li><a href="global.html#todayScore">todayScore</a></li><li><a href="global.html#value">value</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jul 22 2023 18:35:16 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
