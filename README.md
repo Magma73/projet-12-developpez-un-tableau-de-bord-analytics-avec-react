@@ -1,4 +1,4 @@
-[![React version](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/) [![React router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/en/main) [![Styled component](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/) [![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white)](https://axios-http.com/fr/docs/intro) [![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)](https://yarnpkg.com/) [![Node version](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en) [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://vitejs.dev/)
+[![React version](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/) [![React router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/en/main) [![Styled component](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)](https://styled-components.com/) [![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white)](https://axios-http.com/fr/docs/intro) [![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)](https://yarnpkg.com/) [![Node version](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en) [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://vitejs.dev/) [![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](https://www.postman.com/)
 
 # Projet 12 - Développez un tableau de bord analytics avec react
 
@@ -58,13 +58,13 @@ Il faut utiliser soit D3, soit Recharts.
 
 ## Lancer le projet
 ### Étape 1 - Back-end
-- Forker ou clonez le [référentiel](https://github.com/Magma73/Projet-12-back-end-sportsee)
+- Forker ou clonez le [référentiel](https://github.com/Magma73/Projet-12-back-end-sportsee) : `https://github.com/Magma73/Projet-12-back-end-sportsee.git`
 - Utilisez la commande `yarn` pour installer les dépendances
 - Allez à la racine du dossier principal, puis exécutez la commande `yarn dev`pour lancer le serveur sur le port 3000
 
 
 ### Étape 2 - Front-end
-- Forker ou clonez le [référentiel du front-end](https://github.com/Magma73/projet-12-developpez-un-tableau-de-bord-analytics-avec-react.git)
+- Forker ou clonez le [référentiel du front-end](https://github.com/Magma73/projet-12-developpez-un-tableau-de-bord-analytics-avec-react.git) : `https://github.com/Magma73/projet-12-developpez-un-tableau-de-bord-analytics-avec-react.git`
 - Utilisez la commande `yarn install` pour installer les dépendances
 - Accédez à la racine du dossier principal, puis exécutez la commande `yarn start` pour lancer l'application
 
